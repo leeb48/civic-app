@@ -14,6 +14,18 @@ export const reducer = (state = initialState, action: Actions) => {
         ...state,
         elections: action.payload,
       };
+
+    case CivicActionTypes.clearElectionId:
+      return {
+        ...state,
+        currentElectionId: "",
+        voterInfo: null,
+      };
+    case CivicActionTypes.setElectionId:
+      return {
+        ...state,
+        currentElectionId: action.payload,
+      };
     case CivicActionTypes.getVoterInfo:
       return {
         ...state,

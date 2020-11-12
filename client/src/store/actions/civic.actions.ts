@@ -2,16 +2,24 @@ import { Dispatch } from "react";
 import { axiosConfig } from "../../config/axios.config";
 import {
   IAddress,
+  IClearElectionIdAction,
   IGetElectionsAction,
   IGetVoterInfoAction,
+  ISetElectionIdAction,
 } from "./civic.interfaces";
 
 export enum CivicActionTypes {
   getElections = "civic/get-elections",
+  setElectionId = "civic/set-election-id",
+  clearElectionId = "civic/clear-election-id",
   getVoterInfo = "civic/get-voter-info",
 }
 
-export type CivicActions = IGetElectionsAction | IGetVoterInfoAction;
+export type CivicActions =
+  | IGetElectionsAction
+  | IGetVoterInfoAction
+  | IClearElectionIdAction
+  | ISetElectionIdAction;
 
 export const getElections = async (dispatch: Dispatch<IGetElectionsAction>) => {
   const res = await axiosConfig.get("/civic/get-elections");
@@ -19,6 +27,22 @@ export const getElections = async (dispatch: Dispatch<IGetElectionsAction>) => {
   return dispatch({
     type: CivicActionTypes.getElections,
     payload: res.data,
+  });
+};
+
+export const clearElectionId = (dispatch: Dispatch<IClearElectionIdAction>) => {
+  return dispatch({
+    type: CivicActionTypes.clearElectionId,
+  });
+};
+
+export const setElectionId = (
+  dispatch: Dispatch<ISetElectionIdAction | IClearElectionIdAction>,
+  electionId: string
+) => {
+  return dispatch({
+    type: CivicActionTypes.setElectionId,
+    payload: electionId,
   });
 };
 

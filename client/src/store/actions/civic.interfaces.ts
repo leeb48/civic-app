@@ -7,6 +7,15 @@ export interface IGetElectionsAction {
   payload: IElection[];
 }
 
+export interface ISetElectionIdAction {
+  type: CivicActionTypes.setElectionId;
+  payload: string;
+}
+
+export interface IClearElectionIdAction {
+  type: CivicActionTypes.clearElectionId;
+}
+
 export interface IGetVoterInfoAction {
   type: CivicActionTypes.getVoterInfo;
   payload: IVoterInfo;
