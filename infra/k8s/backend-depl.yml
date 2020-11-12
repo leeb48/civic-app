@@ -15,6 +15,28 @@ spec:
       containers:
         - name: backend
           image: bongster228/civic-backend
+          env:
+            - name: OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: civic
+                  key: OAUTH_CLIENT_ID
+            - name: OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: civic
+                  key: OAUTH_CLIENT_SECRET
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: civic
+                  key: API_KEY
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: civic
+                  key: MONGO_URI
+
 ---
 apiVersion: v1
 kind: Service
