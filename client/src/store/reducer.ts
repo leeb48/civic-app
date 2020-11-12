@@ -3,6 +3,7 @@ import { IState } from "./interfaces";
 
 export const initialState: IState = {
   elections: null,
+  currentElectionId: "",
   voterInfo: null,
 };
 

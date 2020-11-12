@@ -10,6 +10,7 @@ import {
 import React from "react";
 import vote from "../../img/vote.jpg";
 import representative from "../../img/representative.jpg";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: { marginTop: "3rem" },
@@ -29,7 +30,14 @@ const Landing = () => {
 
   return (
     <Grid className={classes.root} container justify="center">
-      <Grid xs={12} sm={6} direction="column" justify="space-around" container>
+      <Grid
+        xs={12}
+        sm={6}
+        direction="column"
+        justify="space-around"
+        item
+        container
+      >
         <Card className={classes.card}>
           <CardActionArea>
             <CardMedia
@@ -45,7 +53,7 @@ const Landing = () => {
           </CardActionArea>
         </Card>
         <Card>
-          <CardActionArea>
+          <CardActionArea component={Link} to="/elections">
             <CardMedia className={classes.media} image={vote} title="vote" />
             <CardContent>
               <Typography variant="h5" component="h2">

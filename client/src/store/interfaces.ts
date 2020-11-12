@@ -1,12 +1,13 @@
 export interface IState {
   elections: IElection[] | null;
+  currentElectionId: string;
   voterInfo: IVoterInfo | null;
 }
 
 export interface IElection {
   id: string;
   name: string;
-  eletionDay: string;
+  electionDay: string;
   ocdDivisionId: string;
 }
 

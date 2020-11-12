@@ -1,10 +1,27 @@
-import { Button, TextField } from "@material-ui/core";
-import React, { Fragment, useContext, useState } from "react";
+import { Button, Grid, TextField, Theme } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/styles";
+import React, { Fragment as form, useContext, useState } from "react";
 import { getVoterInfo, IAddress } from "../../store/actions";
 import { Store } from "../../store/Store";
+import { useForm } from "../utils/useForm";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& .MuiFormControl-root": {
+        width: "80%",
+        margin: theme.spacing(1),
+      },
+    },
+  })
+);
+
+const initialFValues: IAddress = {};
 
 const VoterInfo = () => {
   const { state, dispatch } = useContext(Store);
+  const classes = useStyles();
+  useForm();
 
   const [address, setAddress] = useState<IAddress>({
     locationName: "",
@@ -28,33 +45,34 @@ const VoterInfo = () => {
   };
 
   return (
-    <Fragment>
-      <form onSubmit={onSubmit}>
-        <TextField
-          label="Line 1"
-          name="line1"
-          value={line1}
-          onChange={onChange}
-        />
-        <TextField
-          label="Line 2"
-          name="line2"
-          value={line2}
-          onChange={onChange}
-        />
-
-        <TextField label="City" name="city" value={city} onChange={onChange} />
-
-        <TextField
-          label="state"
-          name="state"
-          value={residentState}
-          onChange={onChange}
-        />
-        <TextField label="zip" name="zip" value={zip} onChange={onChange} />
-        <Button type="submit">Search</Button>
-      </form>
-    </Fragment>
+    <form className={classes.root}>
+      <Grid container>
+        <Grid xs={6} item>
+          <TextField
+            variant="outlined"
+            label="Line 1"
+            name="line1"
+            value={line1}
+            onChange={onChange}
+          />
+          <TextField
+            variant="outlined"
+            label="Line 2 (Optional)"
+            name="line2"
+            value={line2}
+            onChange={onChange}
+          />
+          <TextField
+            variant="outlined"
+            label="Line 3 (Optional)"
+            name="line3"
+            value={line3}
+            onChange={onChange}
+          />
+        </Grid>
+        <Grid xs={6} item></Grid>
+      </Grid>
+    </form>
   );
 };
 
