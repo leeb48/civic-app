@@ -11,6 +11,8 @@ export interface IElection {
   ocdDivisionId: string;
 }
 
+export type SNSType = "Facebook" | "Twitter" | "YouTube";
+
 export interface IVoterInfo {
   normalizedInput: {
     locationName: string;
@@ -131,7 +133,7 @@ export interface IVoterInfo {
           orderOnBallot: number;
           channels: [
             {
-              type: string;
+              type: SNSType;
               id: string;
             }
           ];

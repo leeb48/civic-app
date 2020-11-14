@@ -16,7 +16,7 @@ const initialFValues: IAddress = {
 
 const VoterInfo = () => {
   const { state, dispatch } = useContext(Store);
-  const { values, onChange } = useForm(initialFValues);
+  const { values, onChange } = useForm<IAddress>(initialFValues);
 
   const { line1, line2, line3, city, state: residentState, zip } = values;
 

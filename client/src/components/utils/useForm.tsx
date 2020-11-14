@@ -1,8 +1,8 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import React, { useState } from "react";
 
-export const useForm = (initialFValues: any) => {
-  const [values, setValues] = useState(initialFValues);
+export const useForm = <T,>(initialFValues: T) => {
+  const [values, setValues] = useState<T>(initialFValues);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value });

@@ -5,9 +5,29 @@ import {
   Grid,
   Paper,
   Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Link,
+  IconButton,
 } from "@material-ui/core";
 import React, { useContext } from "react";
 import { Store } from "../../store/Store";
+
+// Icon Imports
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import YouTubeIcon from "@material-ui/icons/YouTube";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import NotInterestedIcon from "@material-ui/icons/NotInterested";
+import EmailIcon from "@material-ui/icons/Email";
+import PhoneIcon from "@material-ui/icons/Phone";
+import LanguageIcon from "@material-ui/icons/Language";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import GavelIcon from "@material-ui/icons/Gavel";
+import InfoIcon from "@material-ui/icons/Info";
+
+import { IVoterInfo, SNSType } from "../../store/interfaces";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,47 +39,212 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       marginTop: theme.spacing(2),
     },
+    accordionContent: {
+      marginBottom: theme.spacing(2),
+    },
+    iconSize: {
+      "& .MuiSvgIcon-root": {
+        height: "3rem",
+        width: "3rem",
+      },
+    },
+    smallIcon: {
+      height: "2rem !important",
+      width: "2rem !important",
+    },
+    iconAndText: {
+      "& .icon-and-text": {
+        display: "flex",
+        alignItems: "center",
+      },
+
+      "& .MuiSvgIcon-root": {
+        marginRight: theme.spacing(1),
+      },
+    },
   })
 );
 
 const ElectionResults = () => {
   const { state } = useContext(Store);
   const classes = useStyles();
-  return (
-    <Grid justify="center" container>
-      {state.voterInfo &&
-        state.voterInfo.contests.map((contest, idx) => {
-          if (contest.type === "General") {
-            return (
-              <Grid key={idx} xs={12} sm={11} item>
-                <Paper className={classes.searchResults}>
-                  <Typography variant="h5">{contest.office}</Typography>
-                  {contest.candidates?.map((candidate) => (
-                    <Paper
-                      className={classes.candidates}
-                      elevation={3}
-                      variant="outlined"
-                      key={candidate.name}
-                    >
-                      <Typography>
-                        {candidate.name} ({candidate.party})
-                      </Typography>
-                    </Paper>
-                  ))}
-                </Paper>
-              </Grid>
-            );
-          }
 
-          return (
-            <Grid key={idx} xs={12} sm={11} item>
-              <Paper className={classes.searchResults}>
-                <Typography variant="h5">{contest.type}</Typography>
-                {contest.referendumSubtitle}
-              </Paper>
+  const renderSNS = (snsType: SNSType, snsUrl: string) => {
+    switch (snsType) {
+      case "Facebook":
+        return (
+          <IconButton component={Link} target="_blank" href={snsUrl}>
+            <FacebookIcon style={{ fill: "#4267B2" }} />
+          </IconButton>
+        );
+      case "Twitter":
+        return (
+          <IconButton component={Link} target="_blank" href={snsUrl}>
+            <TwitterIcon style={{ fill: "#1DA1F2" }} />
+          </IconButton>
+        );
+      case "YouTube":
+        return (
+          <IconButton component={Link} target="_blank" href={snsUrl}>
+            <YouTubeIcon style={{ fill: "#FF0000" }} />
+          </IconButton>
+        );
+      default:
+        return <NotInterestedIcon />;
+    }
+  };
+
+  const renderCandidateIcon = (party: string) => {
+    switch (party) {
+      case "Democratic":
+        return <AssignmentIndIcon style={{ fill: "#00509d" }} />;
+
+      case "Republican":
+        return <AssignmentIndIcon style={{ fill: "#DE0100" }} />;
+
+      case "Libertarian":
+        return <AssignmentIndIcon style={{ fill: "#fdc500" }} />;
+
+      case "Independent American":
+        return <AssignmentIndIcon style={{ fill: "#38b000" }} />;
+
+      default:
+        return <AssignmentIndIcon />;
+    }
+  };
+
+  const renderGeneral = (contest: IVoterInfo["contests"][0]) => (
+    // Header for the election
+    <Grid key={contest.office} xs={12} sm={11} item>
+      <Paper className={classes.searchResults}>
+        <Typography color="primary" variant="h5" gutterBottom>
+          {contest.office}
+        </Typography>
+
+        {/* Render candidates */}
+        {contest.candidates?.map((candidate) => (
+          <Accordion key={candidate.name}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <div className="icon-and-text">
+                {renderCandidateIcon(candidate.party)}
+                <Typography variant="h6">
+                  {candidate.name} ({candidate.party})
+                </Typography>
+              </div>
+            </AccordionSummary>
+
+            {/* Render Contact Info */}
+            <AccordionDetails>
+              <Grid container>
+                <Grid
+                  className={classes.accordionContent}
+                  justify="space-around"
+                  item
+                  container
+                >
+                  {candidate.phone && (
+                    <div className="icon-and-text">
+                      <PhoneIcon style={{ fill: "#0F9D58" }} />
+                      <Typography variant="body1">{candidate.phone}</Typography>
+                    </div>
+                  )}
+                  {candidate.email && (
+                    <div className="icon-and-text">
+                      <EmailIcon style={{ fill: "#F4B400" }} />
+                      <Typography variant="body1">{candidate.email}</Typography>
+                    </div>
+                  )}
+                  {candidate.candidateUrl && (
+                    <div className="icon-and-text">
+                      <IconButton
+                        component={Link}
+                        target="_blank"
+                        href={candidate.candidateUrl}
+                      >
+                        <LanguageIcon style={{ fill: "#4285F4" }} />
+                      </IconButton>
+                    </div>
+                  )}
+                </Grid>
+
+                {/* Render SNS Info */}
+                <Grid justify="space-around" item container>
+                  {candidate.channels?.map((channel) => (
+                    <Grid key={channel.id} item>
+                      {renderSNS(channel.type, channel.id)}
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Paper>
+    </Grid>
+  );
+
+  const renderReferendum = (contest: IVoterInfo["contests"][0]) => (
+    <Grid key={contest.referendumSubtitle} xs={12} sm={11} item>
+      <Paper className={classes.searchResults}>
+        {/* Render referendum title */}
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <div className="icon-and-text">
+              <GavelIcon style={{ fill: "#774936" }} />
+              <Typography variant="h6">
+                {contest.referendumTitle} ({contest.type})
+              </Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            {/* Render referendum info and link to url */}
+            <Grid container>
+              <Grid xs={11} item className="icon-and-text">
+                <InfoIcon
+                  style={{ fill: "#118ab2" }}
+                  className={classes.smallIcon}
+                />
+                {contest.referendumSubtitle}.
+              </Grid>
+              <Grid xs={1} item>
+                {contest.referendumUrl && (
+                  <IconButton
+                    component={Link}
+                    target="_blank"
+                    href={contest.referendumUrl}
+                  >
+                    <LanguageIcon
+                      className={classes.smallIcon}
+                      style={{ fill: "#4285F4" }}
+                    />
+                  </IconButton>
+                )}
+              </Grid>
             </Grid>
-          );
-        })}
+          </AccordionDetails>
+        </Accordion>
+      </Paper>
+    </Grid>
+  );
+
+  const renderContests =
+    state.voterInfo &&
+    state.voterInfo.contests.map((contest) => {
+      // General elections and referendums are displayed separately
+      if (contest.type === "General") {
+        return renderGeneral(contest);
+      }
+
+      return renderReferendum(contest);
+    });
+
+  return (
+    <Grid
+      justify="center"
+      className={`${classes.iconAndText} ${classes.iconSize}`}
+      container
+    >
+      {renderContests}
     </Grid>
   );
 };
