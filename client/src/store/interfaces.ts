@@ -3,6 +3,11 @@ export interface IState {
   currentElectionId: string;
   voterInfo: IVoterInfo | null;
   representativesInfo: IRepresentativeInfo | null;
+  searchLoading: boolean;
+  representativeSearchResults: {
+    offices: IRepresentativeInfo["offices"] | null;
+    officials: IRepresentativeInfo["officials"] | null;
+  };
 }
 
 export interface IElection {

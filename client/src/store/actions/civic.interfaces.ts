@@ -21,9 +21,19 @@ export interface IGetVoterInfoAction {
   payload: IVoterInfo;
 }
 
-export interface IGetRepresentatives {
+export interface IGetRepresentativesAction {
   type: CivicActionTypes.getRepresentatives;
-  payload: IRepresentativeInfo;
+  payload: {
+    data: IRepresentativeInfo;
+    loading: boolean;
+    offices: IRepresentativeInfo["offices"];
+    officials: IRepresentativeInfo["officials"];
+  };
+}
+
+export interface ISearchLoadingAction {
+  type: CivicActionTypes.searchLoading;
+  payload: boolean;
 }
 
 // Data Interfaces

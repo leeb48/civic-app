@@ -1,3 +1,7 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+// Material UI Imports
 import {
   Card,
   CardActionArea,
@@ -7,10 +11,10 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+
+// Image Imports
 import vote from "../../img/vote.jpg";
 import representative from "../../img/representative.jpg";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: { marginTop: "3rem" },
@@ -38,6 +42,7 @@ const Landing = () => {
         item
         container
       >
+        {/* Find your representative card button */}
         <Card className={classes.card}>
           <CardActionArea component={Link} to="/representatives">
             <CardMedia
@@ -53,6 +58,7 @@ const Landing = () => {
           </CardActionArea>
         </Card>
         <Card>
+          {/* Find your election card button */}
           <CardActionArea component={Link} to="/elections">
             <CardMedia className={classes.media} image={vote} title="vote" />
             <CardContent>

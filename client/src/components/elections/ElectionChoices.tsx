@@ -1,3 +1,6 @@
+import React, { Fragment, useContext } from "react";
+
+// Material UI Imports
 import {
   Grid,
   Card,
@@ -9,7 +12,8 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core";
-import React, { Fragment, useContext } from "react";
+
+// State Management Imports
 import {
   clearElectionId,
   getElections,
@@ -40,6 +44,7 @@ const ElectionChoices = () => {
   };
   return (
     <Fragment>
+      {/* Render header */}
       <Grid className={classes.pageContent} container justify="center">
         <Grid item>
           <Button
@@ -52,6 +57,8 @@ const ElectionChoices = () => {
           </Button>
         </Grid>
       </Grid>
+
+      {/* Render election cards */}
       <Grid justify="center" container>
         <Grid xs={1} item />
         {state.elections?.map((election) => (

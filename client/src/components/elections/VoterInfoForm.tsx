@@ -1,7 +1,13 @@
-import { Button, Grid, TextField } from "@material-ui/core";
 import React, { useContext } from "react";
+
+// Material UI Imports
+import { Button, Grid, TextField } from "@material-ui/core";
+
+// State Mangement Imports
 import { getVoterInfo, IAddress } from "../../store/actions";
 import { Store } from "../../store/Store";
+
+// Util Imports
 import { useForm, Form } from "../utils/useForm";
 
 const initialFValues: IAddress = {
@@ -29,6 +35,7 @@ const VoterInfo = () => {
   return (
     <Form>
       <Grid container>
+        {/* Form column 1 */}
         <Grid xs={12} sm={6} item>
           <TextField
             variant="outlined"
@@ -52,6 +59,8 @@ const VoterInfo = () => {
             onChange={onChange}
           />
         </Grid>
+
+        {/* Form column 2 */}
         <Grid xs={12} sm={6} item>
           <TextField
             variant="outlined"
@@ -75,6 +84,8 @@ const VoterInfo = () => {
             onChange={onChange}
           />
         </Grid>
+
+        {/* Submit button */}
         <Grid xs={12} style={{ marginTop: "1rem" }} item>
           <Button
             onClick={onSubmit}

@@ -1,3 +1,7 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+// Material UI Imports
 import {
   AppBar,
   createStyles,
@@ -10,11 +14,10 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
+
+// Icon Imports
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-
-import React from "react";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Navbar = () => {
   const classes = useStyles();
 
+  // Menu state and handlers
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

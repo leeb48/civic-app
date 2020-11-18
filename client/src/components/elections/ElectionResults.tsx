@@ -1,3 +1,6 @@
+import React, { useContext } from "react";
+
+// Material UI Imports
 import {
   createStyles,
   makeStyles,
@@ -11,7 +14,8 @@ import {
   Link,
   IconButton,
 } from "@material-ui/core";
-import React, { useContext } from "react";
+
+// State Management Imports
 import { Store } from "../../store/Store";
 
 // Icon Imports
@@ -22,7 +26,10 @@ import LanguageIcon from "@material-ui/icons/Language";
 import GavelIcon from "@material-ui/icons/Gavel";
 import InfoIcon from "@material-ui/icons/Info";
 
+// Interface Imports
 import { IVoterInfo } from "../../store/interfaces";
+
+// Util Imports
 import { renderCandidateIcon, renderSNS } from "../utils/renderIcons";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -85,7 +92,7 @@ const ElectionResults = () => {
               </div>
             </AccordionSummary>
 
-            {/* Render Contact Info */}
+            {/* Render contact info */}
             <AccordionDetails>
               <Grid container>
                 <Grid

@@ -1,3 +1,6 @@
+import React, { Fragment, useContext } from "react";
+
+// Material UI Imports
 import {
   Button,
   Checkbox,
@@ -6,9 +9,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useContext } from "react";
+
+// State Management Imports
 import { getRepresentatives, IAddressWithFilter } from "../../store/actions";
 import { Store } from "../../store/Store";
+
+// Util Imports
 import { useForm, Form } from "../utils/useForm";
 
 const initialFValues: IAddressWithFilter = {
@@ -55,8 +61,8 @@ const RepresentativesForm = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // filters must be combined before sending it to backend
     const filters: string[] = [];
-
     if (federalFilter) filters.push(FilterOptions.federalFilter);
     if (stateFilter) filters.push(FilterOptions.stateFilter);
     if (countyFilter) filters.push(FilterOptions.countyFilter);
@@ -70,108 +76,122 @@ const RepresentativesForm = () => {
     getRepresentatives(dispatch, filters, values);
   };
 
+  const renderForm = (
+    <Fragment>
+      {/* Address Form Inputs */}
+      <Grid xs={12} sm={6} item>
+        <TextField
+          variant="outlined"
+          label="Line 1"
+          name="line1"
+          value={line1}
+          onChange={onChange}
+        />
+        <TextField
+          variant="outlined"
+          label="Line 2 (Optional)"
+          name="line2"
+          value={line2}
+          onChange={onChange}
+        />
+        <TextField
+          variant="outlined"
+          label="Line 3 (Optional)"
+          name="line3"
+          value={line3}
+          onChange={onChange}
+        />
+      </Grid>
+      <Grid xs={12} sm={6} item>
+        <TextField
+          variant="outlined"
+          label="City"
+          name="city"
+          value={city}
+          onChange={onChange}
+        />
+        <TextField
+          variant="outlined"
+          label="State"
+          name="state"
+          value={residentState}
+          onChange={onChange}
+        />
+        <TextField
+          variant="outlined"
+          label="Zip Code"
+          name="zip"
+          value={zip}
+          onChange={onChange}
+        />
+      </Grid>
+    </Fragment>
+  );
+
+  const renderCheckbox = (
+    <Fragment>
+      {/* Filter checkboxes */}
+      <Grid xs={12} alignItems="center" justify="center" item container>
+        <Grid item>
+          <Typography variant="h6" style={{ marginRight: "1rem" }}>
+            Filters:{" "}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={federalFilter}
+                onChange={handleCheckbox}
+                name="federalFilter"
+              />
+            }
+            label="Federal"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={stateFilter}
+                onChange={handleCheckbox}
+                name="stateFilter"
+              />
+            }
+            label="State"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={countyFilter}
+                onChange={handleCheckbox}
+                name="countyFilter"
+              />
+            }
+            label="County"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={localFilter}
+                onChange={handleCheckbox}
+                name="localFilter"
+              />
+            }
+            label="Local"
+          />
+        </Grid>
+      </Grid>
+    </Fragment>
+  );
+
   return (
     <Form>
       <Grid container>
-        {/* Address Form Inputs */}
-        <Grid xs={12} sm={6} item>
-          <TextField
-            variant="outlined"
-            label="Line 1"
-            name="line1"
-            value={line1}
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            label="Line 2 (Optional)"
-            name="line2"
-            value={line2}
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            label="Line 3 (Optional)"
-            name="line3"
-            value={line3}
-            onChange={onChange}
-          />
-        </Grid>
-        <Grid xs={12} sm={6} item>
-          <TextField
-            variant="outlined"
-            label="City"
-            name="city"
-            value={city}
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            label="State"
-            name="state"
-            value={residentState}
-            onChange={onChange}
-          />
-          <TextField
-            variant="outlined"
-            label="Zip Code"
-            name="zip"
-            value={zip}
-            onChange={onChange}
-          />
-        </Grid>
+        {renderForm}
 
-        {/* Filter checkboxes */}
-        <Grid xs={12} alignItems="center" justify="center" item container>
-          <Grid item>
-            <Typography variant="h6" style={{ marginRight: "1rem" }}>
-              Filters:{" "}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={federalFilter}
-                  onChange={handleCheckbox}
-                  name="federalFilter"
-                />
-              }
-              label="Federal"
-            />
+        {renderCheckbox}
 
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={stateFilter}
-                  onChange={handleCheckbox}
-                  name="stateFilter"
-                />
-              }
-              label="State"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={countyFilter}
-                  onChange={handleCheckbox}
-                  name="countyFilter"
-                />
-              }
-              label="County"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={localFilter}
-                  onChange={handleCheckbox}
-                  name="localFilter"
-                />
-              }
-              label="Local"
-            />
-          </Grid>
-        </Grid>
+        {/* Submit button */}
         <Grid xs={12} style={{ marginTop: "1rem" }} item>
           <Button
             onClick={onSubmit}

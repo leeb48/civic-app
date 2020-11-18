@@ -3,6 +3,14 @@ import axios from "axios";
 
 const router = express.Router();
 
+/**
+ * @route   POST /api/civic/get-representatives
+ * @desc    The route takes address and filter from the
+ *          post request. It uses google civic api to
+ *          request representative information at the address
+ *          with the filters.
+ * @access  Public
+ */
 router.post(
   "/api/civic/get-representatives",
   async (req: Request, res: Response) => {
@@ -25,7 +33,7 @@ router.post(
        * local = locality
        */
 
-      //  combine
+      //  combine filters
       const levels = filters.map((filter: string) => `&levels=${filter}`);
 
       const axiosRes = await axios.get(

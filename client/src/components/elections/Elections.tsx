@@ -1,3 +1,6 @@
+import React, { Fragment, useContext } from "react";
+
+// Material UI Imports
 import {
   createStyles,
   makeStyles,
@@ -5,8 +8,11 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useContext } from "react";
+
+// State Management Imports
 import { Store } from "../../store/Store";
+
+// Component Imports
 import ElectionChoices from "./ElectionChoices";
 import ElectionResults from "./ElectionResults";
 import VoterInfoForm from "./VoterInfoForm";
@@ -28,18 +34,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+// TODO: Refactor
+
 const Elections = () => {
   const { state } = useContext(Store);
   const classes = useStyles();
 
+  const renderHeader = (
+    <Paper className={classes.headingContent} variant="outlined">
+      <Typography variant="h6" component="h6">
+        Choose an upcoming election to get more information in your area.{" "}
+      </Typography>
+      <Typography variant="subtitle2">
+        VIP Test Election is a place holder. An actual election will be
+        available as we get closer to the election date.
+      </Typography>
+    </Paper>
+  );
+
   return (
     <Fragment>
-      <Paper className={classes.headingContent} variant="outlined">
-        <Typography variant="h6" component="h6">
-          Choose an upcoming election to get more information in your area.
-        </Typography>
-      </Paper>
-
       <ElectionChoices />
 
       {state.currentElectionId && (

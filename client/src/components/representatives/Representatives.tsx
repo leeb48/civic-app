@@ -1,3 +1,6 @@
+import React, { Fragment, useContext } from "react";
+
+// Material UI Imports
 import {
   createStyles,
   makeStyles,
@@ -5,8 +8,11 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useContext } from "react";
+
+// State Management Imports
 import { Store } from "../../store/Store";
+
+// Component Imports
 import RepresentativesForm from "./RepresentativesForm";
 import RepresentativesResults from "./RepresentativesResults";
 
@@ -33,14 +39,21 @@ const Representatives = () => {
   } = useContext(Store);
   const classes = useStyles();
 
+  const renderHeader = (
+    <Paper className={classes.headingContent} variant="outlined">
+      <Typography variant="h6" component="h6">
+        Provide an address to find out more about currently elected
+        representatives.
+      </Typography>
+      <Typography variant="subtitle2">
+        At least one filter must be selected
+      </Typography>
+    </Paper>
+  );
+
   return (
     <Fragment>
-      <Paper className={classes.headingContent} variant="outlined">
-        <Typography variant="h6" component="h6">
-          Provide an address to find out more about currently elected
-          representatives.
-        </Typography>
-      </Paper>
+      {renderHeader}
 
       <Paper className={classes.pageContent}>
         <RepresentativesForm />

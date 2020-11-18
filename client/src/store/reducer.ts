@@ -6,6 +6,11 @@ export const initialState: IState = {
   currentElectionId: "",
   voterInfo: null,
   representativesInfo: null,
+  searchLoading: false,
+  representativeSearchResults: {
+    offices: null,
+    officials: null,
+  },
 };
 
 export const reducer = (state = initialState, action: Actions) => {
@@ -14,6 +19,12 @@ export const reducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         elections: action.payload,
+      };
+
+    case CivicActionTypes.searchLoading:
+      return {
+        ...state,
+        searchLoading: action.payload,
       };
 
     case CivicActionTypes.clearElectionId:
@@ -35,7 +46,12 @@ export const reducer = (state = initialState, action: Actions) => {
     case CivicActionTypes.getRepresentatives:
       return {
         ...state,
-        representativesInfo: action.payload,
+        representativesInfo: action.payload.data,
+        searchLoading: action.payload.loading,
+        representativeSearchResults: {
+          offices: action.payload.offices,
+          officials: action.payload.officials,
+        },
       };
     default:
       return state;
