@@ -39,7 +39,7 @@ const Landing = () => {
         container
       >
         <Card className={classes.card}>
-          <CardActionArea>
+          <CardActionArea component={Link} to="/representatives">
             <CardMedia
               className={classes.media}
               image={representative}

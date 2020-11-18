@@ -16,18 +16,14 @@ import { Store } from "../../store/Store";
 
 // Icon Imports
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import YouTubeIcon from "@material-ui/icons/YouTube";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
 import LanguageIcon from "@material-ui/icons/Language";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import GavelIcon from "@material-ui/icons/Gavel";
 import InfoIcon from "@material-ui/icons/Info";
 
-import { IVoterInfo, SNSType } from "../../store/interfaces";
+import { IVoterInfo } from "../../store/interfaces";
+import { renderCandidateIcon, renderSNS } from "../utils/renderIcons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,55 +65,11 @@ const ElectionResults = () => {
   const { state } = useContext(Store);
   const classes = useStyles();
 
-  const renderSNS = (snsType: SNSType, snsUrl: string) => {
-    switch (snsType) {
-      case "Facebook":
-        return (
-          <IconButton component={Link} target="_blank" href={snsUrl}>
-            <FacebookIcon style={{ fill: "#4267B2" }} />
-          </IconButton>
-        );
-      case "Twitter":
-        return (
-          <IconButton component={Link} target="_blank" href={snsUrl}>
-            <TwitterIcon style={{ fill: "#1DA1F2" }} />
-          </IconButton>
-        );
-      case "YouTube":
-        return (
-          <IconButton component={Link} target="_blank" href={snsUrl}>
-            <YouTubeIcon style={{ fill: "#FF0000" }} />
-          </IconButton>
-        );
-      default:
-        return <NotInterestedIcon />;
-    }
-  };
-
-  const renderCandidateIcon = (party: string) => {
-    switch (party) {
-      case "Democratic":
-        return <AssignmentIndIcon style={{ fill: "#00509d" }} />;
-
-      case "Republican":
-        return <AssignmentIndIcon style={{ fill: "#DE0100" }} />;
-
-      case "Libertarian":
-        return <AssignmentIndIcon style={{ fill: "#fdc500" }} />;
-
-      case "Independent American":
-        return <AssignmentIndIcon style={{ fill: "#38b000" }} />;
-
-      default:
-        return <AssignmentIndIcon />;
-    }
-  };
-
   const renderGeneral = (contest: IVoterInfo["contests"][0]) => (
     // Header for the election
     <Grid key={contest.office} xs={12} sm={11} item>
       <Paper className={classes.searchResults}>
-        <Typography color="primary" variant="h5" gutterBottom>
+        <Typography color="inherit" variant="h5" gutterBottom>
           {contest.office}
         </Typography>
 

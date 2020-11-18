@@ -3,6 +3,11 @@ import axios from "axios";
 
 const router = express.Router();
 
+/**
+ * @route   GET /api/civic/get-elections
+ * @desc    Retrieves the information for upcoming elections
+ * @access  Public
+ */
 router.get("/api/civic/get-elections", async (req: Request, res: Response) => {
   try {
     const axiosRes = await axios.get(
@@ -15,6 +20,13 @@ router.get("/api/civic/get-elections", async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @route   POST /api/civic/get-voter-info
+ * @desc    Makes a request to google civic api with an address from the POST
+ *          request. Sends back detailed info about the election that is happening
+ *          at the address.
+ * @access  Public
+ */
 router.post(
   "/api/civic/get-voter-info",
   async (req: Request, res: Response) => {

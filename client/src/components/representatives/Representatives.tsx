@@ -7,9 +7,8 @@ import {
 } from "@material-ui/core";
 import React, { Fragment, useContext } from "react";
 import { Store } from "../../store/Store";
-import ElectionChoices from "./ElectionChoices";
-import ElectionResults from "./ElectionResults";
-import VoterInfoForm from "./VoterInfoForm";
+import RepresentativesForm from "./RepresentativesForm";
+import RepresentativesResults from "./RepresentativesResults";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,29 +27,35 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Elections = () => {
-  const { state } = useContext(Store);
+const Representatives = () => {
+  const {
+    state: { representativesInfo },
+  } = useContext(Store);
   const classes = useStyles();
 
   return (
     <Fragment>
       <Paper className={classes.headingContent} variant="outlined">
         <Typography variant="h6" component="h6">
-          Choose an upcoming election to get more information in your area.
+          Provide an address to find out more about currently elected
+          representatives.
         </Typography>
       </Paper>
 
-      <ElectionChoices />
+      <Paper className={classes.pageContent}>
+        <RepresentativesForm />
+      </Paper>
 
-      {state.currentElectionId && (
+      {representativesInfo && (
         <Paper className={classes.pageContent}>
-          <VoterInfoForm />
+          <RepresentativesResults
+            offices={representativesInfo.offices}
+            officials={representativesInfo.officials}
+          />
         </Paper>
       )}
-
-      <ElectionResults />
     </Fragment>
   );
 };
 
-export default Elections;
+export default Representatives;

@@ -5,6 +5,7 @@ export const initialState: IState = {
   elections: null,
   currentElectionId: "",
   voterInfo: null,
+  representativesInfo: null,
 };
 
 export const reducer = (state = initialState, action: Actions) => {
@@ -30,6 +31,11 @@ export const reducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         voterInfo: action.payload,
+      };
+    case CivicActionTypes.getRepresentatives:
+      return {
+        ...state,
+        representativesInfo: action.payload,
       };
     default:
       return state;

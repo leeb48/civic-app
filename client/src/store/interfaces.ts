@@ -2,6 +2,7 @@ export interface IState {
   elections: IElection[] | null;
   currentElectionId: string;
   voterInfo: IVoterInfo | null;
+  representativesInfo: IRepresentativeInfo | null;
 }
 
 export interface IElection {
@@ -210,4 +211,66 @@ export interface IVoterInfo {
     }
   ];
   mailOnly: boolean;
+}
+
+export interface IRepresentativeInfo {
+  kind: "civicinfo#representativeInfoResponse";
+  normalizedInput: {
+    locationName: string;
+    line1: string;
+    line2: string;
+    line3: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  divisions: {
+    [key: string]: {
+      name: string;
+      alsoKnownAs: [string];
+      officeIndices: number[];
+    };
+  };
+  offices: [
+    {
+      name: string;
+      divisionId: string;
+      levels: [string];
+      roles: [string];
+      sources: [
+        {
+          name: string;
+          official: boolean;
+        }
+      ];
+      officialIndices: number[];
+    }
+  ];
+  officials: [
+    {
+      name: string;
+      address: [
+        {
+          locationName: string;
+          line1: string;
+          line2: string;
+          line3: string;
+          city: string;
+          state: string;
+          zip: string;
+        }
+      ];
+      party: string;
+      phones: [string];
+      urls: [string];
+      photoUrl: string;
+      emails: [string];
+      channels: [
+        {
+          type: SNSType;
+          id: string;
+        }
+      ];
+    }
+  ];
 }

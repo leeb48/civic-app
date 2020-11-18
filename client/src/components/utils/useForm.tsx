@@ -7,10 +7,14 @@ export const useForm = <T,>(initialFValues: T) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value });
 
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setValues({ ...values, [e.currentTarget.name]: e.currentTarget.checked });
+
   return {
     values,
     setValues,
     onChange,
+    handleCheckbox,
   };
 };
 

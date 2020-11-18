@@ -4,6 +4,7 @@ import {
   IAddress,
   IClearElectionIdAction,
   IGetElectionsAction,
+  IGetRepresentatives,
   IGetVoterInfoAction,
   ISetElectionIdAction,
 } from "./civic.interfaces";
@@ -13,13 +14,15 @@ export enum CivicActionTypes {
   setElectionId = "civic/set-election-id",
   clearElectionId = "civic/clear-election-id",
   getVoterInfo = "civic/get-voter-info",
+  getRepresentatives = "civic/get-representatives",
 }
 
 export type CivicActions =
   | IGetElectionsAction
   | IGetVoterInfoAction
   | IClearElectionIdAction
-  | ISetElectionIdAction;
+  | ISetElectionIdAction
+  | IGetRepresentatives;
 
 export const getElections = async (dispatch: Dispatch<IGetElectionsAction>) => {
   const res = await axiosConfig.get("/civic/get-elections");
@@ -58,6 +61,22 @@ export const getVoterInfo = async (
 
   return dispatch({
     type: CivicActionTypes.getVoterInfo,
+    payload: res.data,
+  });
+};
+
+export const getRepresentatives = async (
+  dispatch: Dispatch<IGetRepresentatives>,
+  filters: string[],
+  address: IAddress
+) => {
+  const res = await axiosConfig.post("/civic/get-representatives", {
+    filters,
+    address,
+  });
+
+  return dispatch({
+    type: CivicActionTypes.getRepresentatives,
     payload: res.data,
   });
 };
