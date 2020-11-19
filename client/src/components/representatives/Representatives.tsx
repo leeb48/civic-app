@@ -13,8 +13,8 @@ import {
 import { Store } from "../../store/Store";
 
 // Component Imports
-import RepresentativesForm from "./RepresentativesForm";
-import RepresentativesResults from "./RepresentativesResults";
+import RepresentativesForm from "./forms/RepresentativesForm";
+import RepresentativesList from "./searchResults/RepresentativesList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,10 +61,7 @@ const Representatives = () => {
 
       {representativesInfo && (
         <Paper className={classes.pageContent}>
-          <RepresentativesResults
-            offices={representativesInfo.offices}
-            officials={representativesInfo.officials}
-          />
+          <RepresentativesList offices={representativesInfo.offices} />
         </Paper>
       )}
     </Fragment>

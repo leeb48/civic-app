@@ -2,6 +2,7 @@ export interface IState {
   elections: IElection[] | null;
   currentElectionId: string;
   voterInfo: IVoterInfo | null;
+  contests: IVoterInfo["contests"] | null;
   representativesInfo: IRepresentativeInfo | null;
   searchLoading: boolean;
   representativeSearchResults: {

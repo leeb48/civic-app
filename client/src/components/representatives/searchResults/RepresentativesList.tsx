@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 // Material UI Imports
 import {
@@ -10,13 +10,17 @@ import {
 } from "@material-ui/core";
 
 // Interface Imports
-import { IRepresentativeInfo } from "../../store/interfaces";
+import { IRepresentativeInfo } from "../../../store/interfaces";
+
+// Component Imports
 
 import OfficeItem from "./OfficeItem";
+import Spinner from "../../layout/Spinner";
 
+// State Management Imports
+import { Store } from "../../../store/Store";
 interface IRepresentativesResultsProps {
   offices: IRepresentativeInfo["offices"];
-  officials: IRepresentativeInfo["officials"];
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,8 +47,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const RepresentativesResults = ({ offices }: IRepresentativesResultsProps) => {
+const RepresentativesList = ({ offices }: IRepresentativesResultsProps) => {
   const classes = useStyles();
+  const {
+    state: { searchLoading },
+  } = useContext(Store);
 
   const renderOffices = offices ? (
     offices.map((office, idx) => <OfficeItem key={idx} office={office} />)
@@ -58,9 +65,9 @@ const RepresentativesResults = ({ offices }: IRepresentativesResultsProps) => {
       className={`${classes.iconAndText} ${classes.iconSize}`}
       container
     >
-      {renderOffices}
+      {searchLoading ? <Spinner /> : renderOffices}
     </Grid>
   );
 };
 
-export default RepresentativesResults;
+export default RepresentativesList;

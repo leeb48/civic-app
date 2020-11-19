@@ -1,15 +1,20 @@
-import { Link, IconButton } from "@material-ui/core";
+import React from "react";
 
+// Interface Imports
 import { SNSType } from "../../store/interfaces";
 
+// Material UI Imports
+import { Link, IconButton } from "@material-ui/core";
+
+// Icon Imports
 import FacebookIcon from "@material-ui/icons/Facebook";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import React from "react";
 
-export const renderSNS = (snsType: SNSType, snsUrl: string) => {
+// Render SNS with url links when full snsUrls are provided
+export const renderSNSFullLink = (snsType: SNSType, snsUrl: string) => {
   switch (snsType) {
     case "Facebook":
       return (
@@ -34,17 +39,15 @@ export const renderSNS = (snsType: SNSType, snsUrl: string) => {
   }
 };
 
-export const renderSNSForRepresentatives = (
-  snsType: SNSType,
-  snsUrl: string
-) => {
+// Render SNS with url links when only the SNS id are povided
+export const renderSNSIdOnly = (snsType: SNSType, snsId: string) => {
   switch (snsType) {
     case "Facebook":
       return (
         <IconButton
           component={Link}
           target="_blank"
-          href={`https://www.facebook.com/${snsUrl}`}
+          href={`https://www.facebook.com/${snsId}`}
         >
           <FacebookIcon style={{ fill: "#4267B2" }} />
         </IconButton>
@@ -54,7 +57,7 @@ export const renderSNSForRepresentatives = (
         <IconButton
           component={Link}
           target="_blank"
-          href={`https://www.twitter.com/${snsUrl}`}
+          href={`https://www.twitter.com/${snsId}`}
         >
           <TwitterIcon style={{ fill: "#1DA1F2" }} />
         </IconButton>
@@ -64,7 +67,7 @@ export const renderSNSForRepresentatives = (
         <IconButton
           component={Link}
           target="_blank"
-          href={`https://www.youtube.com/${snsUrl}`}
+          href={`https://www.youtube.com/${snsId}`}
         >
           <YouTubeIcon style={{ fill: "#FF0000" }} />
         </IconButton>

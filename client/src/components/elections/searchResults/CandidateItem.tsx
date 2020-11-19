@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 // Material UI Imports
 import {
@@ -15,22 +15,20 @@ import {
   IconButton,
 } from "@material-ui/core";
 
-// State Management Imports
-import { Store } from "../../store/Store";
-
 // Icon Imports
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
 import LanguageIcon from "@material-ui/icons/Language";
-import GavelIcon from "@material-ui/icons/Gavel";
-import InfoIcon from "@material-ui/icons/Info";
 
 // Interface Imports
-import { IVoterInfo } from "../../store/interfaces";
+import { IVoterInfo } from "../../../store/interfaces";
 
 // Util Imports
-import { renderCandidateIcon, renderSNS } from "../utils/renderIcons";
+import {
+  renderCandidateIcon,
+  renderSNSFullLink,
+} from "../../utils/renderIcons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,41 +36,20 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(3),
       padding: theme.spacing(3),
     },
-    candidates: {
-      padding: theme.spacing(2),
-      marginTop: theme.spacing(2),
-    },
     accordionContent: {
       marginBottom: theme.spacing(2),
-    },
-    iconSize: {
-      "& .MuiSvgIcon-root": {
-        height: "3rem",
-        width: "3rem",
-      },
-    },
-    smallIcon: {
-      height: "2rem !important",
-      width: "2rem !important",
-    },
-    iconAndText: {
-      "& .icon-and-text": {
-        display: "flex",
-        alignItems: "center",
-      },
-
-      "& .MuiSvgIcon-root": {
-        marginRight: theme.spacing(1),
-      },
     },
   })
 );
 
-const ElectionResults = () => {
-  const { state } = useContext(Store);
+interface ICandidateItemProps {
+  contest: IVoterInfo["contests"][0];
+}
+
+const CandidateItem = ({ contest }: ICandidateItemProps) => {
   const classes = useStyles();
 
-  const renderGeneral = (contest: IVoterInfo["contests"][0]) => (
+  return (
     // Header for the election
     <Grid key={contest.office} xs={12} sm={11} item>
       <Paper className={classes.searchResults}>
@@ -130,7 +107,7 @@ const ElectionResults = () => {
                 <Grid justify="space-around" item container>
                   {candidate.channels?.map((channel) => (
                     <Grid key={channel.id} item>
-                      {renderSNS(channel.type, channel.id)}
+                      {renderSNSFullLink(channel.type, channel.id)}
                     </Grid>
                   ))}
                 </Grid>
@@ -141,71 +118,6 @@ const ElectionResults = () => {
       </Paper>
     </Grid>
   );
-
-  const renderReferendum = (contest: IVoterInfo["contests"][0]) => (
-    <Grid key={contest.referendumSubtitle} xs={12} sm={11} item>
-      <Paper className={classes.searchResults}>
-        {/* Render referendum title */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <div className="icon-and-text">
-              <GavelIcon style={{ fill: "#774936" }} />
-              <Typography variant="h6">
-                {contest.referendumTitle} ({contest.type})
-              </Typography>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            {/* Render referendum info and link to url */}
-            <Grid container>
-              <Grid xs={11} item className="icon-and-text">
-                <InfoIcon
-                  style={{ fill: "#118ab2" }}
-                  className={classes.smallIcon}
-                />
-                {contest.referendumSubtitle}.
-              </Grid>
-              <Grid xs={1} item>
-                {contest.referendumUrl && (
-                  <IconButton
-                    component={Link}
-                    target="_blank"
-                    href={contest.referendumUrl}
-                  >
-                    <LanguageIcon
-                      className={classes.smallIcon}
-                      style={{ fill: "#4285F4" }}
-                    />
-                  </IconButton>
-                )}
-              </Grid>
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
-      </Paper>
-    </Grid>
-  );
-
-  const renderContests =
-    state.voterInfo &&
-    state.voterInfo.contests.map((contest) => {
-      // General elections and referendums are displayed separately
-      if (contest.type === "General") {
-        return renderGeneral(contest);
-      }
-
-      return renderReferendum(contest);
-    });
-
-  return (
-    <Grid
-      justify="center"
-      className={`${classes.iconAndText} ${classes.iconSize}`}
-      container
-    >
-      {renderContests}
-    </Grid>
-  );
 };
 
-export default ElectionResults;
+export default CandidateItem;

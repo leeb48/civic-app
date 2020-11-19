@@ -14,8 +14,8 @@ import { Store } from "../../store/Store";
 
 // Component Imports
 import ElectionChoices from "./ElectionChoices";
-import ElectionResults from "./ElectionResults";
-import VoterInfoForm from "./VoterInfoForm";
+import VoterInfoForm from "./form/VoterInfoForm";
+import ContestList from "./searchResults/ContestList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,9 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-// TODO: Refactor
-
-const Elections = () => {
+const ElectionInfo = () => {
   const { state } = useContext(Store);
   const classes = useStyles();
 
@@ -54,6 +52,8 @@ const Elections = () => {
 
   return (
     <Fragment>
+      {renderHeader}
+
       <ElectionChoices />
 
       {state.currentElectionId && (
@@ -62,9 +62,9 @@ const Elections = () => {
         </Paper>
       )}
 
-      <ElectionResults />
+      <ContestList />
     </Fragment>
   );
 };
 
-export default Elections;
+export default ElectionInfo;

@@ -18,14 +18,16 @@ export interface IClearElectionIdAction {
 
 export interface IGetVoterInfoAction {
   type: CivicActionTypes.getVoterInfo;
-  payload: IVoterInfo;
+  payload: {
+    data: IVoterInfo;
+    contests: IVoterInfo["contests"];
+  };
 }
 
 export interface IGetRepresentativesAction {
   type: CivicActionTypes.getRepresentatives;
   payload: {
     data: IRepresentativeInfo;
-    loading: boolean;
     offices: IRepresentativeInfo["offices"];
     officials: IRepresentativeInfo["officials"];
   };

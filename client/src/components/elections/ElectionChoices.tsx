@@ -42,6 +42,27 @@ const ElectionChoices = () => {
     clearElectionId(dispatch);
     setElectionId(dispatch, electionId);
   };
+
+  const renderElectionCards = state.elections?.map((election) => (
+    <Grid key={election.ocdDivisionId} item>
+      <Card>
+        <CardActionArea onClick={() => handleSetElectionId(election.id)}>
+          <CardContent>
+            <Typography color="textSecondary" gutterBottom>
+              {election.electionDay}
+            </Typography>
+            <Typography variant="h5" component="h2" gutterBottom>
+              {election.name}
+            </Typography>
+            <Typography variant="body2" component="p">
+              Election ID: {election.id}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Grid>
+  ));
+
   return (
     <Fragment>
       {/* Render header */}
@@ -61,25 +82,7 @@ const ElectionChoices = () => {
       {/* Render election cards */}
       <Grid justify="center" container>
         <Grid xs={1} item />
-        {state.elections?.map((election) => (
-          <Grid key={election.ocdDivisionId} item>
-            <Card>
-              <CardActionArea onClick={() => handleSetElectionId(election.id)}>
-                <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    {election.electionDay}
-                  </Typography>
-                  <Typography variant="h5" component="h2" gutterBottom>
-                    {election.name}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    Election ID: {election.id}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
+        {renderElectionCards}
         <Grid xs={1} item />
       </Grid>
     </Fragment>

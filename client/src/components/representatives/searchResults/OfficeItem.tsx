@@ -11,9 +11,9 @@ import {
 } from "@material-ui/core";
 
 // Interface Imports
-import { IRepresentativeInfo } from "../../store/interfaces";
 
 import OfficialsItem from "./OfficialsItem";
+import { IRepresentativeInfo } from "../../../store/interfaces";
 
 interface IOfficeItemProps {
   office: IRepresentativeInfo["offices"][0];

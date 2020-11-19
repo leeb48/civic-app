@@ -11,11 +11,15 @@ import {
 } from "@material-ui/core";
 
 // State Management Imports
-import { getRepresentatives, IAddressWithFilter } from "../../store/actions";
-import { Store } from "../../store/Store";
+import {
+  getRepresentatives,
+  IAddressWithFilter,
+  searchLoading,
+} from "../../../store/actions";
+import { Store } from "../../../store/Store";
 
 // Util Imports
-import { useForm, Form } from "../utils/useForm";
+import { useForm, Form } from "../../utils/useForm";
 
 const initialFValues: IAddressWithFilter = {
   locationName: "",
@@ -73,6 +77,7 @@ const RepresentativesForm = () => {
       return;
     }
 
+    searchLoading(dispatch);
     getRepresentatives(dispatch, filters, values);
   };
 

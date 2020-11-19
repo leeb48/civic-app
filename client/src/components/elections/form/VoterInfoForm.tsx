@@ -4,11 +4,11 @@ import React, { useContext } from "react";
 import { Button, Grid, TextField } from "@material-ui/core";
 
 // State Mangement Imports
-import { getVoterInfo, IAddress } from "../../store/actions";
-import { Store } from "../../store/Store";
+import { getVoterInfo, IAddress, searchLoading } from "../../../store/actions";
+import { Store } from "../../../store/Store";
 
 // Util Imports
-import { useForm, Form } from "../utils/useForm";
+import { useForm, Form } from "../../utils/useForm";
 
 const initialFValues: IAddress = {
   locationName: "",
@@ -29,6 +29,7 @@ const VoterInfo = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    searchLoading(dispatch);
     getVoterInfo(dispatch, state.currentElectionId, values);
   };
 

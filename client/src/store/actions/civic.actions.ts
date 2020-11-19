@@ -64,7 +64,10 @@ export const getVoterInfo = async (
 
   return dispatch({
     type: CivicActionTypes.getVoterInfo,
-    payload: res.data,
+    payload: {
+      data: res.data,
+      contests: res.data["contests"],
+    },
   });
 };
 
@@ -88,7 +91,6 @@ export const getRepresentatives = async (
     type: CivicActionTypes.getRepresentatives,
     payload: {
       data: res.data,
-      loading: false,
       offices: res.data["offices"],
       officials: res.data["officials"],
     },
