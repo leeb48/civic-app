@@ -15,7 +15,8 @@ import { Store } from "../../store/Store";
 // Component Imports
 import ElectionChoices from "./ElectionChoices";
 import VoterInfoForm from "./form/VoterInfoForm";
-import ContestList from "./searchResults/ContestList";
+import ContestList from "./contestList/ContestList";
+import VotingInfo from "./votingInfo/VotingInfo";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const ElectionInfo = () => {
-  const { state } = useContext(Store);
+  const {
+    state: {
+      currentElectionId,
+      voterInfoSearchResults: { earlyVoteSites, pollingLocations, contests },
+    },
+  } = useContext(Store);
   const classes = useStyles();
 
   const renderHeader = (
@@ -53,14 +59,22 @@ const ElectionInfo = () => {
   return (
     <Fragment>
       {renderHeader}
-
       <ElectionChoices />
-
-      {state.currentElectionId && (
+      {currentElectionId && (
         <Paper className={classes.pageContent}>
           <VoterInfoForm />
         </Paper>
       )}
+
+      {!earlyVoteSites && !pollingLocations && !contests && currentElectionId && (
+        <Paper className={classes.pageContent}>
+          <Typography align="center" variant="h6">
+            Contest data not available
+          </Typography>
+        </Paper>
+      )}
+
+      {(earlyVoteSites || pollingLocations || contests) && <VotingInfo />}
 
       <ContestList />
     </Fragment>

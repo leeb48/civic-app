@@ -80,7 +80,7 @@ const ElectionChoices = () => {
       </Grid>
 
       {/* Render election cards */}
-      <Grid justify="center" container>
+      <Grid justify="space-around" container>
         <Grid xs={1} item />
         {renderElectionCards}
         <Grid xs={1} item />

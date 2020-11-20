@@ -1,7 +1,13 @@
 import React, { useContext } from "react";
 
 // Material UI Imports
-import { createStyles, makeStyles, Theme, Grid } from "@material-ui/core";
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  Grid,
+  Paper,
+} from "@material-ui/core";
 
 // State Management Imports
 import { Store } from "../../../store/Store";
@@ -34,7 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ContestList = () => {
   const {
-    state: { searchLoading, contests },
+    state: {
+      searchLoading,
+      voterInfoSearchResults: { contests },
+    },
   } = useContext(Store);
   const classes = useStyles();
 

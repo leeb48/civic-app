@@ -19,8 +19,10 @@ export interface IClearElectionIdAction {
 export interface IGetVoterInfoAction {
   type: CivicActionTypes.getVoterInfo;
   payload: {
-    data: IVoterInfo;
-    contests: IVoterInfo["contests"];
+    data: IVoterInfo | null;
+    contests: IVoterInfo["contests"] | null;
+    earlyVoteSites: IVoterInfo["earlyVoteSites"] | null;
+    pollingLocations: IVoterInfo["pollingLocations"] | null;
   };
 }
 

@@ -5,7 +5,11 @@ export const initialState: IState = {
   elections: null,
   currentElectionId: "",
   voterInfo: null,
-  contests: null,
+  voterInfoSearchResults: {
+    contests: null,
+    earlyVoteSites: null,
+    pollingLocations: null,
+  },
   representativesInfo: null,
   searchLoading: false,
   representativeSearchResults: {
@@ -43,7 +47,11 @@ export const reducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         voterInfo: action.payload.data,
-        contests: action.payload.contests,
+        voterInfoSearchResults: {
+          contests: action.payload.contests,
+          earlyVoteSites: action.payload.earlyVoteSites,
+          pollingLocations: action.payload.pollingLocations,
+        },
         searchLoading: false,
       };
     case CivicActionTypes.getRepresentatives:

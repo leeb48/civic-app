@@ -67,6 +67,8 @@ export const getVoterInfo = async (
     payload: {
       data: res.data,
       contests: res.data["contests"],
+      earlyVoteSites: res.data["earlyVoteSites"],
+      pollingLocations: res.data["pollingLocations"],
     },
   });
 };
