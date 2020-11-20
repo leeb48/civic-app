@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(4),
     },
+    card: {
+      marginBottom: theme.spacing(3),
+    },
   })
 );
 
@@ -44,7 +47,13 @@ const ElectionChoices = () => {
   };
 
   const renderElectionCards = state.elections?.map((election) => (
-    <Grid key={election.ocdDivisionId} item>
+    <Grid
+      className={classes.card}
+      xs={12}
+      sm={5}
+      key={election.ocdDivisionId}
+      item
+    >
       <Card>
         <CardActionArea onClick={() => handleSetElectionId(election.id)}>
           <CardContent>
@@ -81,9 +90,7 @@ const ElectionChoices = () => {
 
       {/* Render election cards */}
       <Grid justify="space-around" container>
-        <Grid xs={1} item />
         {renderElectionCards}
-        <Grid xs={1} item />
       </Grid>
     </Fragment>
   );
