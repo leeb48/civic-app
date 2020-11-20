@@ -42,6 +42,11 @@ export const reducer = (state = initialState, action: Actions) => {
       return {
         ...state,
         currentElectionId: action.payload,
+        voterInfoSearchResults: {
+          contests: null,
+          earlyVoteSites: null,
+          pollingLocations: null,
+        },
       };
     case CivicActionTypes.getVoterInfo:
       return {
