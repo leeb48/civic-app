@@ -25,8 +25,9 @@
 
 ## About The Project
 
-###[Link To Demo](http://civic-app.us-west-1.elasticbeanstalk.com/)
+[Link To Demo](http://civic-app.us-west-1.elasticbeanstalk.com/)
 
+Click below to see a video of the app
 [![Link to demo video](http://img.youtube.com/vi/LWh7dxjXF6g/0.jpg)](https://www.youtube.com/watch?v=LWh7dxjXF6g&ab_channel=BongLee)
 
 The goal of this project is to help inform people about elections and their representatives. The Civic App provides users with polling and early voting information in upcoming elections based on their location. Users can also use the Civic App before elections to find information about the candidates as well as currently elected officials.
