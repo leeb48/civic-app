@@ -25,7 +25,6 @@
 
 ## About The Project
 
-[Click here to checkout the app](http://civic-app.us-west-1.elasticbeanstalk.com/)
 
 Click below to see a video of the app.
 
