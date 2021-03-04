@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
       context: ./backend
     environment:
-      API_KEY: AIzaSyBaoHWlgW3IV0o9zDc-jBIlsCkqK9qvB4s
+      API_KEY: # provide an api key here from Google
 
   client:
     stdin_open: true
